@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="shortcut icon" href="./istockphoto-839977330-612x612.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <div class="choices" id="choices">
+        <button onclick="playGame('rock')"><img src="rock.png" alt="Rock"></button>
+        <button onclick="playGame('paper')"><img src="paper.png" alt="Paper"></button>
+        <button onclick="playGame('scissors')"><img src="scissors.png" alt="Scissors"></button>
+    </div>
+    <div id="result"></div>
+    <div id="scoreboard">
+        <p>Computer: <span id="computer-score">0</span></p>
+        <p>You: <span id="user-score">0</span></p>
+    </div>
+    <script>
+        let userScore = 0;
+        let computerScore = 0;
+        const winningScore = 5;
+
+        function playGame(userChoice) {
+            document.getElementById('choices').style.display = 'none';
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            let result = '';
+
+            if (userChoice === computerChoice) {
+                result = "It's a tie!";
+            } else if (
+                (userChoice === 'rock' && computerChoice === 'scissors') ||
+                (userChoice === 'paper' && computerChoice === 'rock') ||
+                (userChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                result = "You win! 🏆";
+                userScore++;
+            } else {
+                result = "You lose! ❌";
+                computerScore++;
+            }
+
+            document.getElementById('user-score').innerText = userScore;
+            document.getElementById('computer-score').innerText = computerScore;
+
+
+            document.getElementById('result').innerHTML = `
+        <img src="${userChoice}.png" alt="${userChoice}">
+        <img src="${computerChoice}.png" alt="${computerChoice}">
+        <p>${result}</p>
+        <button class="play-again" onclick="resetGame()">Play Again</button>`;
+        }
+
+        function resetGame() {
+
+            document.getElementById('user-score').innerText = userScore;
+            document.getElementById('computer-score').innerText = computerScore;
+            document.getElementById('choices').style.display = 'flex';
+            document.getElementById('result').innerHTML = '';
+        }
+
+
+
+    </script>
+</body>
+
+</html>
